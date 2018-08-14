@@ -18,8 +18,8 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public Event save(Event event) throws Exception {
-        if(isVacantDate(event.getDate(), null)){
+    public Event save(Event event) {
+        if(isVacantDate(event.getDate(), event.getId())){
             return repository.save(event);
         }
         return null;

@@ -25,8 +25,8 @@ public class UserResource {
     }
 
     @GetMapping(value="/getUser")
-    public User getUser(@RequestParam String idNumber, @RequestParam String password){
-        return service.getUser(idNumber,password);
+    public User getUser(@RequestParam String email, @RequestParam String password){
+        return service.getUser(email,password);
     }
 
 }

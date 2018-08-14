@@ -13,7 +13,7 @@ public class EventResource {
     private EventService service;
 
     @PostMapping("/save")
-    public Event create(@RequestBody Event event) throws Exception {
+    public Event create(@RequestBody Event event) {
         return service.save(event);
     }
 

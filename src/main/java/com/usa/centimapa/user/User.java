@@ -13,8 +13,17 @@ public class User{
     private String username;
     private String contact;
     private String email;
+    private String address;
     private String password;
 
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
