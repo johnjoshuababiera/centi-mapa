@@ -9,9 +9,11 @@ public class Event {
     private Long id;
     @Version
     private long version;
-    private String name;
+    private String description;
     private long date;
-
+    private Long userId;
+    private String name;
+    private String contactPerson;
 
     public Long getId() {
         return id;
@@ -29,12 +31,12 @@ public class Event {
         this.version = version;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getDate() {
@@ -43,5 +45,29 @@ public class Event {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
     }
 }

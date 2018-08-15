@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public boolean hasDuplicate(User user) {
-        User duplicate = repository.findByEmail(user.getUsername());
+        User duplicate = repository.findByUsername(user.getUsername());
         if (duplicate(user, duplicate)) {
             return true;
         }
@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User getUser(String idNumber, String password) {
-        User user = repository.findByEmail(idNumber);
+    public User getUser(String userName, String password) {
+        User user = repository.findByUsername(userName);
         if (user != null && PASSWORD_ENCODER.matches(password, user.getPassword())) {
             return user;
         }
