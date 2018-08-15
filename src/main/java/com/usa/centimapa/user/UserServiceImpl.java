@@ -39,16 +39,11 @@ public class UserServiceImpl implements UserService {
 
     public boolean hasDuplicate(User user) {
         User duplicate = repository.findByUsername(user.getUsername());
-        if (duplicate(user, duplicate)) {
+        if (duplicate != null && duplicate.getId() != user.getId()) {
             return true;
         }
         return false;
     }
-
-    private boolean duplicate(User user, User duplicate) {
-        return duplicate != null && duplicate.getId() == user.getId();
-    }
-
 
     @Override
     public User getUser(String userName, String password) {
