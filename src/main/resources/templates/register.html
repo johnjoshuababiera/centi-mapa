@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+    <meta name="description" content="Centi Mapa"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/components/sb-admin/css/sb-admin.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/components/DataTables-1.10.16/css/dataTables.bootstrap4.css}"/>
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <title>Centi Mapa</title>
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<div class="card card-login mx-auto mt-5">
+    <div class="card-header">Register</div>
+    <div class="card-body">
+        <form th:action="@{/register}" th:object="${user}" method="post">
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input class="form-control" id="username" type="text" th:field="*{username}" th:required="required"
+                       placeholder="Username"/>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" id="email" type="email" aria-describedby="emailHelp" th:field="*{email}" th:required="required" placeholder="Enter email"/>
+            </div>
+            <div class="form-group">
+                <label for="username">Contact:</label>
+                <input class="form-control" id="contact" type="text" th:field="*{contact}" th:required="required" placeholder="Contact number"/>
+            </div>
+            <div class="form-group">
+                <label for="username">Address:</label>
+                <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="Address"/>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password"
+                       th:field="*{password}" th:required="required"/>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" href="index.html">Register</button>
+        </form>
+        <div class="text-center">
+            <a class="d-block small mt-3" href="/login">Login</a>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/vendor/sweetalert/swal.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        var error = [[${error}]];
+        var success = [[${success}]];
+        if (null != error) {
+            swal("Error!", error, "error");
+        } else if (null != success) {
+            swal("Success!", success, "success");
+        }
+
+    </script>
+</div>
+</body>
+</html>

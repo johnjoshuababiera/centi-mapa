@@ -10,11 +10,14 @@ public class User{
     private Long id;
     @Version
     private long version;
+    private boolean admin=false;
     private String username;
     private String contact;
     private String email;
     private String address;
     private String password;
+
+
 
 
     public String getAddress() {
@@ -71,5 +74,13 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

@@ -5,4 +5,7 @@ public interface UserService {
     User save(User user) throws Exception;
     User updateUser(User user) ;
     User getUser(String idNumber, String password);
+    boolean noAdminAccount();
+
+    void initializeAdmin();
 }

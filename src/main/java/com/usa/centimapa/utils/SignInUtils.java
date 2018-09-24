@@ -1,10 +1,11 @@
 package com.usa.centimapa.utils;
 
-
 import com.usa.centimapa.user.User;
 
-public enum SignInUtils {
-    INSTANCE;
+public class SignInUtils {
+
+
+    private static SignInUtils INSTANCE = new SignInUtils();
 
     public static SignInUtils getInstance() {
         return INSTANCE;

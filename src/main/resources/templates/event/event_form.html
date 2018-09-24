@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+    <meta name="description" content="Centi Mapa"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/sb-admin/sb-admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/jquery-ui/jquery-ui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/components/DataTables-1.10.16/css/dataTables.bootstrap4.css}"/>
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <title>Centi Mapa</title>
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" th:href="@{/}">Centi Mapa</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="News">
+                <a class="nav-link" th:href="@{/page/event/}">
+                    <i class="fa fa-fw fa fa-eventpaper-o"></i>
+                    <span class="nav-link-text">Event</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Topic</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Item Name</label>
+                <input type="text" class="form-control" id="itemName"/>
+                <label>Price</label>
+                <input type="number" class="form-control" id="itemPrice"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary saveItem">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <h5 align="center">News Form</h5>
+        <div class="container">
+            <form th:action="@{/page/event/save}" th:object="${event}" method="post" id="eventForm" enctype="multipart/form-data">
+
+                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{version}">
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="name" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                    </div>
+                    <div class="col-6">
+                        <label for="description" class="col-form-label">Description</label>
+                        <input type="text" class="form-control" id="description" th:field="*{description}"/>
+                    </div>
+                    <div class="col-6">
+                        <label for="description" class="col-form-label">Contact Person</label>
+                        <input type="text" class="form-control" id="contactPerson" th:field="*{contactPerson}"/>
+                    </div>
+                    <div class="col-6">
+                        <label for="date" class="col-form-label">Date</label>
+                        <input type="text" class="form-control" id="date"/>
+                        <input type="hidden" class="form-control" id="dateField" th:field="*{date}"/>
+                    </div>
+
+                    <div class="col-12">
+                        <h5>Topics</h5>
+                        <ul class="list-group" id="items" style="margin-bottom: 5px">
+                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                th:each="item,i:*{items}">
+                                <th:block>
+                                    <input type="hidden" th:field="*{items[__${i.index}__].id}"/>
+                                    <input type="hidden" th:field="*{items[__${i.index}__].version}"/>
+                                    <input type="hidden" th:field="*{items[__${i.index}__].name}"/>
+                                    <input type="hidden" th:field="*{items[__${i.index}__].price}"/>
+                                </th:block>
+                                <span th:text="${item.name}+' - '+${item.price}"></span>
+                                <span><button type="button" class="btn btn-warning deleteItem">Delete</button></span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="col-12" style="margin-top: 10px">
+                    <button type="button" id="saveBtn" class="btn btn-primary float-right saveBtn">Submit</button>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 10px"
+                            data-toggle="modal" data-target="#addItemModal">Add Item
+                    </button>
+                    <a th:href="@{/page/event/}" class="btn btn-danger">Back</a>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © Centi Mapa</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Are you sure you want to logout?</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" th:href="@{/signout}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script type="text/javascript" th:src="@{/vendor/jquery-ui/jquery-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
+    <script type="text/javascript" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+    <script type="text/javascript" th:src="@{/components/sb-admin/js/sb-admin.js}"></script>
+    <script type="text/javascript" th:src="@{/components/moment/moment.js}"></script>
+    <script type="text/javascript" th:src="@{/components/DataTables-1.10.16/js/jquery.dataTables.js}"></script>
+    <script type="text/javascript" th:src="@{/components/DataTables-1.10.16/js/dataTables.bootstrap4.js}"></script>
+
+    <script type="text/javascript" th:src="@{/vendor/sweetalert/swal.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+
+        var error = [[${error}]];
+        var success = [[${success}]];
+        if (null != error) {
+            swal("Error!", error, "error");
+        } else if (null != success) {
+            swal("Success!", success, "success");
+        }
+
+
+        $(document).ready(function () {
+
+            $('#date').datepicker();
+
+            var date = [[${event.date}]];
+
+            $('#date').val(moment(new Date(date)).format("MM/DD/YYYY"));
+
+            $('.saveItem').on('click', function () {
+                var name = $('#itemName').val();
+                var price = $('#itemPrice').val();
+                var rowIndex = $('#items')[0].children.length;
+
+                var deleteBtn = ' <span><button type="button" class="btn btn-warning deleteItem">Delete</button></span>'
+                var nameField = '<input type="hidden" name="items[' + rowIndex + '].name" value="' + name + '" />';
+                var priceField = '<input type="hidden" name="items[' + rowIndex + '].price" value="' + price + '" />';
+                var titleSpan = '<span>' + name + ' - ' + price + '</span>';
+
+
+                var row = '<li  class="list-group-item d-flex justify-content-between align-items-center">' +
+                    nameField + priceField + titleSpan + deleteBtn + '</li>';
+                $('#items').append(row);
+                $('#itemName').val('');
+                $('#itemPrice').val('');
+                $('#addItemModal').modal('hide');
+            })
+        });
+
+        $(document).on('click', '.saveBtn', function (event) {
+
+            if($('#date').val() && $('#name').val() && $('#description').val() && $('#contactPerson').val()){
+                var date = new Date($('#date').val());
+                $("#dateField").val(date.getTime());
+                $('#eventForm').submit();
+            }else{
+                swal("Please fill up all fields to continue!", error, "error");
+            }
+
+
+        });
+
+        $(document).on('click', '.deleteItem', function (event) {
+            var evt = $(this);
+            swal({
+                title: 'Are you sure you want to delete item?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if (result.value) {
+                    evt.parents('li').remove();
+                }
+            });
+
+        });
+
+
+    </script>
+</div>
+</body>
+</html>

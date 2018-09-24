@@ -14,7 +14,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Event findOne(long id) {
-        return repository.getOne(id);
+        return repository.findById(id).get();
     }
 
     @Override
@@ -33,6 +33,16 @@ public class EventServiceImpl implements EventService{
     @Override
     public List<Event> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<Event> findByUserId(Long id) {
+        return repository.findByUserId(id);
+    }
+
+    @Override
+    public void delete(long id) {
+
     }
 
     boolean isVacantDate(long date, Long id){

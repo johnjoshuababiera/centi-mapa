@@ -1,6 +1,7 @@
 package com.usa.centimapa.event;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -9,11 +10,17 @@ public class Event {
     private Long id;
     @Version
     private long version;
-    private String description;
-    private long date;
-    private Long userId;
     private String name;
+    private String description;
+    private Long date;
+    private Long userId;
     private String contactPerson;
+
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JoinColumn
+    private List<Item> items;
+
+
 
     public Long getId() {
         return id;
@@ -39,11 +46,11 @@ public class Event {
         this.description = description;
     }
 
-    public long getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
@@ -69,5 +76,13 @@ public class Event {
 
     public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

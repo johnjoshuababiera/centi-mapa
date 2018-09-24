@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -14,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findOne(long id) {
-        return repository.getOne(id);
+        return repository.findById(id).get();
     }
 
     @Override
@@ -52,6 +54,21 @@ public class UserServiceImpl implements UserService {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public boolean noAdminAccount() {
+        List<User> user =repository.findByAdminIsTrue();
+        return user==null || user.isEmpty();
+    }
+
+    @Override
+    public void initializeAdmin(){
+        User user = new User();
+        user.setUsername("admin");
+        user.setAdmin(true);
+        user.setPassword("$centi_m@pa167");
+        save(user);
     }
 
 

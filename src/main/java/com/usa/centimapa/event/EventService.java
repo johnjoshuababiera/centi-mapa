@@ -8,4 +8,6 @@ public interface EventService {
     Event save(Event event);
     void removeEvent(long id);
     List<Event> findAll();
+    List<Event> findByUserId(Long id);
+    void delete(long id);
 }
