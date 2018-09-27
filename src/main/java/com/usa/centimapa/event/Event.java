@@ -16,9 +16,6 @@ public class Event {
     private Long userId;
     private String contactPerson;
 
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @JoinColumn
-    private List<Item> items;
 
 
 
@@ -78,11 +75,4 @@ public class Event {
         this.contactPerson = contactPerson;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 }

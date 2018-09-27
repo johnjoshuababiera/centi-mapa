@@ -13,7 +13,7 @@ public class EventResource {
     private EventService service;
 
     @PostMapping("/save")
-    public Event create(@RequestBody Event event) {
+    public Event create(@RequestBody Event event) throws Exception {
         return service.save(event);
     }
 
@@ -29,6 +29,6 @@ public class EventResource {
 
     @DeleteMapping(value="/remove")
     public void remove(@PathVariable long id){
-        service.removeEvent(id);
+        service.remove(id);
     }
 }

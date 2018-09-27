@@ -18,31 +18,22 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public Event save(Event event) {
+    public Event save(Event event) throws Exception {
         if(isVacantDate(event.getDate(), event.getId())){
             return repository.save(event);
+        }else{
+            throw new Exception("Date is already booked!");
         }
-        return null;
     }
 
     @Override
-    public void removeEvent(long id) {
+    public void remove(long id) {
         repository.deleteById(id);
     }
 
     @Override
     public List<Event> findAll() {
         return repository.findAll();
-    }
-
-    @Override
-    public List<Event> findByUserId(Long id) {
-        return repository.findByUserId(id);
-    }
-
-    @Override
-    public void delete(long id) {
-
     }
 
     boolean isVacantDate(long date, Long id){

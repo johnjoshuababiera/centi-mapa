@@ -1,4 +1,4 @@
-package com.usa.centimapa.event;
+package com.usa.centimapa.packages;
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ public class Item {
     @Version
     private long version;
     private String name;
-    private double price;
+    private double price =0;
 
     public Long getId() {
         return id;

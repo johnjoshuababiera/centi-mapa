@@ -11,10 +11,15 @@
     <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/vendor/font-awesome/css/font-awesome.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/components/sb-admin/css/sb-admin.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/components/DataTables-1.10.16/css/dataTables.bootstrap4.css}"/>
-
+    <link rel="stylesheet" type="text/css" th:href="@{/components/data-table/datatables.css}"/>
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <style>
+        .prntBtn {
+            margin-left: 5px;
+        }
+
+    </style>
     <title>Centi Mapa</title>
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -30,6 +35,12 @@
                 <a class="nav-link" th:href="@{/page/event/}">
                     <i class="fa fa-fw fa fa-newspaper-o"></i>
                     <span class="nav-link-text">Event</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="News">
+                <a class="nav-link" th:href="@{/page/package/}">
+                    <i class="fa fa-fw fa fa-archive"></i>
+                    <span class="nav-link-text">Packages</span>
                 </a>
             </li>
         </ul>
@@ -105,10 +116,8 @@
     <script type="text/javascript" th:src="@{/vendor/jquery/jquery.js}"></script>
     <script type="text/javascript" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.js}"></script>
     <script type="text/javascript" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
-    <script type="text/javascript" th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
     <script type="text/javascript" th:src="@{/components/sb-admin/js/sb-admin.js}"></script>
-    <script type="text/javascript" th:src="@{/components/DataTables-1.10.16/js/jquery.dataTables.js}"></script>
-    <script type="text/javascript" th:src="@{/components/DataTables-1.10.16/js/dataTables.bootstrap4.js}"></script>
+    <script type="text/javascript" th:src="@{/components/data-table/datatables.js}"></script>
 
     <script type="text/javascript" th:src="@{/vendor/sweetalert/swal.js}"></script>
     <script type="text/javascript" th:inline="javascript">
@@ -122,14 +131,28 @@
         }
 
         $(document).ready(function () {
-            var table = $('#eventsTable').dataTable({
+            var table = $('#eventsTable').DataTable( {
+                dom: 'frtlp<"row prntBtn    "B>',
+                buttons: [
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ],
+                            rows: ':visible'
+                        },
+                        title: function(){
+                            return "Centi Mapa - Events"
+                        }
+                    }
+
+                ],
                 "columnDefs": [
                     { "width": "20%", "targets": 0 },
                     { "width": "40%", "targets": 1 },
                     { "width": "20%", "targets": 2 },
                     { "width": "20%", "targets": 2 }
                 ]
-            });
+            } );
         });
     </script>
 </div>

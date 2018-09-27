@@ -1,13 +1,8 @@
 package com.usa.centimapa.event;
 
 
-import java.util.List;
+import com.usa.centimapa.Service;
 
-public interface EventService {
-    Event findOne(long id);
-    Event save(Event event);
-    void removeEvent(long id);
-    List<Event> findAll();
-    List<Event> findByUserId(Long id);
-    void delete(long id);
+public interface EventService extends Service<Event>{
+
 }
