@@ -64,6 +64,8 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Date</th>
+                        <th>Contact Person</th>
+                        <th>Address</th>
                         <th class="nosort"></th>
                     </tr>
                     </thead>
@@ -72,6 +74,8 @@
                         <td th:text="${event.name}"></td>
                         <td th:text="${event.description}"></td>
                         <td th:text="${#dates.format(new java.util.Date(event.date), 'MMMM d, YYYY')}"></td>
+                        <td th:text="${event.client}"></td>
+                        <td th:text="${event.clientEmail}"></td>
                         <td>
                             <a th:href="@{/page/event/edit(id=${event.id})}" class="btn btn-info">Edit</a>
                             <a th:href="@{/page/event/delete(id=${event.id})}" class="btn btn-warning">Delete</a>
@@ -137,7 +141,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [ 0, 1, 2 ],
+                            columns: [ 0, 1, 2 ,3, 4],
                             rows: ':visible'
                         },
                         title: function(){
@@ -147,10 +151,12 @@
 
                 ],
                 "columnDefs": [
-                    { "width": "20%", "targets": 0 },
-                    { "width": "40%", "targets": 1 },
-                    { "width": "20%", "targets": 2 },
-                    { "width": "20%", "targets": 2 }
+                    { "width": "17%", "targets": 0 },
+                    { "width": "25%", "targets": 1 },
+                    { "width": "10%", "targets": 2 },
+                    { "width": "18%", "targets": 3 },
+                    { "width": "20%", "targets": 4 },
+                    { "width": "10%", "targets": 5 }
                 ]
             } );
         });

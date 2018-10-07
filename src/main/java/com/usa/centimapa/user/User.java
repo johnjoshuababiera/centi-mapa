@@ -12,13 +12,20 @@ public class User{
     private long version;
     private boolean admin=false;
     private String username;
+    private String name;
     private String contact;
     private String email;
     private String address;
     private String password;
 
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getAddress() {
         return address;

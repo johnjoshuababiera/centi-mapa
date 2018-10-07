@@ -3,8 +3,10 @@ package com.usa.centimapa.event;
 
 import com.usa.centimapa.user.User;
 import com.usa.centimapa.utils.DateTimeUtil;
+import com.usa.centimapa.utils.EmailUtil;
 import com.usa.centimapa.utils.SignInUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,12 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+
 @Controller
 @RequestMapping("/page/event")
 public class EventController {
 
-    @Autowired
-    private EventService service;
+
+    @Value("${user.email}") private String userEmail;
+    @Value("${user.password}")  private String password;
+    @Value("${emal.body.template}")  private String emailBodyTemplate;
+    @Autowired private EventService service;
 
     @RequestMapping("/")
     public String eventList(Model model, RedirectAttributes redir) {
@@ -79,12 +87,24 @@ public class EventController {
     public String saveEvent(@ModelAttribute Event event, RedirectAttributes redir) {
         event.setUserId(SignInUtils.getInstance().getCurrentUser().getId());
         try {
+
+            sendMail(event);
             service.save(event);
             redir.addFlashAttribute("success", event.getName()+" booked successfully on "+ DateTimeUtil.dateLongToString(event.getDate(), "MMMM dd, yyyy")+".");
             return "redirect:/page/event/";
         } catch (Exception e) {
             redir.addFlashAttribute("error",e.getMessage());
             return event.getId()==null?"redirect:/page/event/create":"redirect:/page/event/edit?id="+event.getId();
+        }
+    }
+
+    private void sendMail(@ModelAttribute Event event) {
+        try {
+            EmailUtil.sendEmail(userEmail, password, event.getClientEmail(), event.getName(), emailBodyTemplate+" "+DateTimeUtil.dateLongToString(event.getDate(),"MMMM dd, yyyy"));
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 }

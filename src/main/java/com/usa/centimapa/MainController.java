@@ -2,6 +2,7 @@ package com.usa.centimapa;
 
 import com.usa.centimapa.user.User;
 import com.usa.centimapa.user.UserService;
+import com.usa.centimapa.utils.EmailUtil;
 import com.usa.centimapa.utils.SignInUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 @Controller
 public class MainController {

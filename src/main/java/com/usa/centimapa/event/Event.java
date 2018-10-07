@@ -12,12 +12,20 @@ public class Event {
     private long version;
     private String name;
     private String description;
+    private String address;
     private Long date;
     private Long userId;
-    private String contactPerson;
+    private String client;
+    private String clientEmail;
 
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -67,12 +75,19 @@ public class Event {
         this.name = name;
     }
 
-    public String getContactPerson() {
-        return contactPerson;
+    public String getClient() {
+        return client;
     }
 
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
+    public void setClient(String client) {
+        this.client = client;
     }
 
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
+    }
 }
