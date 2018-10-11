@@ -64,8 +64,9 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Date</th>
-                        <th>Contact Person</th>
                         <th>Address</th>
+                        <th>Contact Person</th>
+                        <th>Email Address</th>
                         <th class="nosort"></th>
                     </tr>
                     </thead>
@@ -74,6 +75,7 @@
                         <td th:text="${event.name}"></td>
                         <td th:text="${event.description}"></td>
                         <td th:text="${#dates.format(new java.util.Date(event.date), 'MMMM d, YYYY')}"></td>
+                        <td th:text="${event.address}"></td>
                         <td th:text="${event.client}"></td>
                         <td th:text="${event.clientEmail}"></td>
                         <td>
@@ -141,7 +143,7 @@
                     {
                         extend: 'print',
                         exportOptions: {
-                            columns: [ 0, 1, 2 ,3, 4],
+                            columns: [ 0, 1, 2 ,3, 4,5],
                             rows: ':visible'
                         },
                         title: function(){
@@ -151,12 +153,13 @@
 
                 ],
                 "columnDefs": [
-                    { "width": "17%", "targets": 0 },
-                    { "width": "25%", "targets": 1 },
+                    { "width": "12%", "targets": 0 },
+                    { "width": "20%", "targets": 1 },
                     { "width": "10%", "targets": 2 },
-                    { "width": "18%", "targets": 3 },
-                    { "width": "20%", "targets": 4 },
-                    { "width": "10%", "targets": 5 }
+                    { "width": "20%", "targets": 3 },
+                    { "width": "13%", "targets": 4 },
+                    { "width": "15%", "targets": 5 },
+                    { "width": "10%", "targets": 6 }
                 ]
             } );
         });

@@ -71,16 +71,20 @@
                     </div>
                     <div class="col-6">
                         <label for="description" class="col-form-label">Client</label>
-                        <input type="text" class="form-control" id="contactPerson" th:field="*{client}"/>
+                        <input type="text" class="form-control" id="client" th:field="*{client}"/>
                     </div>
                     <div class="col-6">
                         <label for="description" class="col-form-label">Client's Email</label>
-                        <input type="email" class="form-control" id="contactPerson" th:field="*{clientEmail}"/>
+                        <input type="email" class="form-control" id="clientEmail" th:field="*{clientEmail}"/>
                     </div>
                     <div class="col-6">
                         <label for="date" class="col-form-label">Date</label>
                         <input type="date" class="form-control" id="date"/>
                         <input type="hidden" class="form-control" id="dateField" th:field="*{date}"/>
+                    </div>
+                    <div class="col-6">
+                        <label for="description" class="col-form-label">Address</label>
+                        <input type="text" class="form-control" id="address" th:field="*{address}"/>
                     </div>
                 </div>
 
@@ -149,12 +153,12 @@
         });
 
         $(document).on('click', '.saveBtn', function (event) {
-            if($('#date').val() && $('#name').val() && $('#description').val() && $('#contactPerson').val()){
+            if($('#date').val() && $('#name').val() && $('#description').val() && $('#clientEmail').val() &&$('#date').val()){
                 var date = new Date($('#date').val());
                 $("#dateField").val(date.getTime());
                 $('#eventForm').submit();
             }else{
-                swal("Please fill up all fields to continue!", error, "error");
+                swal("Error!", "Please fill up all fields to continue!", "error");
             }
         });
 
